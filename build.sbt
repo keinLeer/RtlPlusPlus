@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
-  "com.typesafe.akka" %% "akka-stream-typed" % AkkaVersion
+  "com.typesafe.akka" %% "akka-stream-typed" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion
 )
 libraryDependencies += "com.typesafe" % "config" % "1.4.2"
 libraryDependencies ++= Seq(
@@ -25,3 +26,6 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
 libraryDependencies += "org.neo4j.driver" % "neo4j-java-driver" % "5.6.0"
+libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+libraryDependencies ++= Seq("org.slf4j" % "slf4j-api" % "1.7.5",
+  "org.slf4j" % "slf4j-simple" % "1.7.5")

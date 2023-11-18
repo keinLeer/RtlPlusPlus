@@ -1,4 +1,5 @@
 import akka.actor.ActorSystem
+import api.WebAppAPI
 import com.typesafe.config.ConfigFactory
 import database.Mediator
 import org.neo4j.driver.{AuthTokens, GraphDatabase}
@@ -28,16 +29,20 @@ object Main {
     implicit val actorSystem: ActorSystem = ActorSystem("system-main")
     implicit val executionContext: ExecutionContext = actorSystem.dispatcher
 
-    val search = new Searchinator()
+
 
     val token = AuthTokens.basic("rtl-mediator", "mediator")
 
     val driver = GraphDatabase.driver("bolt://localhost/7687/episodes", AuthTokens.basic("mediator", "mediator"))
     val mediator = new Mediator(driver)
+    //val search = new Searchinator(mediator)
 
     val rtl = new RtlClient()
+
+    //val webAppAPI = new WebAppAPI(mediator)
+
     val scraper = new SeriesScraper(247, "test", rtl, mediator)
-    val job1 = ScrapeJob(years = Range.inclusive(2016, 2023))
+    val job1 = ScrapeJob(years = Range.inclusive(2017, 2017))
     val res = scraper.scrape(job1)
     res.onComplete {
       case Success(eps) => mediator.addEpisodes(eps, update = false)
